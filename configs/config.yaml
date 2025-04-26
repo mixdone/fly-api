@@ -1,0 +1,14 @@
+db:
+  host: "localhost"
+  port: "5433"
+  user: "puser"
+  dbname: "medium_booking"
+  sslmode: "disable"
+
+log:
+  level: "debug"
+  format: "text" 
+
+server:
+  host: "localhost"
+  port: 8080

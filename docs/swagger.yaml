@@ -1,0 +1,91 @@
+basePath: /
+definitions:
+  models.Airport:
+    properties:
+      city:
+        $ref: '#/definitions/models.Name'
+      code:
+        type: string
+      name:
+        $ref: '#/definitions/models.Name'
+    type: object
+  models.City:
+    properties:
+      name:
+        $ref: '#/definitions/models.Name'
+    type: object
+  models.Name:
+    properties:
+      en:
+        type: string
+      ru:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Это FLY API
+  title: Fly API
+  version: "1.0"
+paths:
+  /locations/airports:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Airport'
+            type: array
+        "500":
+          description: Internal Server Error
+      summary: Получить список аэропортов
+      tags:
+      - Locations
+  /locations/airports/city/{city}:
+    get:
+      description: Этот эндпоинт позволяет получить список аэропортов по имени города
+        города(en).
+      parameters:
+      - description: "Имя города на английском\t"
+        in: path
+        name: city
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Airport'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Получить аэропорты по городу
+      tags:
+      - Locations
+  /locations/cities:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.City'
+            type: array
+        "500":
+          description: Internal Server Error
+      summary: Получить список городов
+      tags:
+      - Locations
+swagger: "2.0"

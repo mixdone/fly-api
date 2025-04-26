@@ -1,0 +1,139 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Это FLY API",
+        "title": "Fly API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/locations/airports": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Locations"
+                ],
+                "summary": "Получить список аэропортов",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Airport"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/locations/airports/city/{city}": {
+            "get": {
+                "description": "Этот эндпоинт позволяет получить список аэропортов по имени города города(en).",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Locations"
+                ],
+                "summary": "Получить аэропорты по городу",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Имя города на английском\t",
+                        "name": "city",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Airport"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/locations/cities": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Locations"
+                ],
+                "summary": "Получить список городов",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.City"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.Airport": {
+            "type": "object",
+            "properties": {
+                "city": {
+                    "$ref": "#/definitions/models.Name"
+                },
+                "code": {
+                    "type": "string"
+                },
+                "name": {
+                    "$ref": "#/definitions/models.Name"
+                }
+            }
+        },
+        "models.City": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "$ref": "#/definitions/models.Name"
+                }
+            }
+        },
+        "models.Name": {
+            "type": "object",
+            "properties": {
+                "en": {
+                    "type": "string"
+                },
+                "ru": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
